@@ -65,9 +65,6 @@ export default function Footer() {
 
           {/* Copyright */}
           <div className="text-center text-xs sm:text-sm text-muted-foreground">
-            <p className="flex items-center justify-center gap-1">
-              Built with <Heart className="w-3 h-3 sm:w-4 sm:h-4 text-accent" /> using Next.js & Three.js
-            </p>
             <p className="mt-2">
               {currentYear} Sudarshan Udupa. All rights reserved.
             </p>

@@ -6,10 +6,12 @@ import { useRef, Suspense, useMemo, useEffect, useState } from "react"
 import { useTheme } from "next-themes"
 import type * as THREE from "three"
 
-function CyberSphere() {
+type SceneProps = {
+  isDark: boolean
+}
+
+function CyberSphere({ isDark }: SceneProps) {
   const meshRef = useRef<THREE.Mesh>(null)
-  const { theme } = useTheme()
-  const isDark = theme === "dark"
 
   useFrame((state) => {
     if (meshRef.current) {
@@ -20,7 +22,7 @@ function CyberSphere() {
 
   return (
     <Float speed={1.2} rotationIntensity={0.2} floatIntensity={0.6}>
-      <Sphere ref={meshRef} args={[1, 100, 200]} scale={1.8}>
+      <Sphere ref={meshRef} args={[1, 64, 128]} scale={1.8}>
         <MeshDistortMaterial
           color={isDark ? "#a855f7" : "#7c3aed"}
           attach="material"
@@ -34,23 +36,9 @@ function CyberSphere() {
   )
 }
 
-function HexGrid() {
+function HexGrid({ isDark }: SceneProps) {
   const gridRef = useRef<THREE.Points>(null)
-  const { theme } = useTheme()
-  const isDark = theme === "dark"
-
-  useFrame((state) => {
-    if (gridRef.current) {
-      gridRef.current.rotation.z = state.clock.elapsedTime * 0.015
-      const positions = gridRef.current.geometry.attributes.position.array as Float32Array
-      for (let i = 0; i < positions.length; i += 3) {
-        positions[i + 2] = Math.sin(state.clock.elapsedTime * 0.4 + positions[i] * 0.4) * 0.08
-      }
-      gridRef.current.geometry.attributes.position.needsUpdate = true
-    }
-  })
-
-  const positions = useMemo(() => {
+  const basePositions = useMemo(() => {
     const pos = new Float32Array(600 * 3)
     for (let i = 0; i < 600; i++) {
       const angle = (i / 600) * Math.PI * 2 * 4
@@ -61,15 +49,26 @@ function HexGrid() {
     }
     return pos
   }, [])
+  const positions = useMemo(() => new Float32Array(basePositions), [basePositions])
+
+  useFrame((state) => {
+    if (gridRef.current) {
+      gridRef.current.rotation.z = state.clock.elapsedTime * 0.015
+      const positions = gridRef.current.geometry.attributes.position.array as Float32Array
+      for (let i = 0; i < positions.length; i += 3) {
+        positions[i + 2] =
+          basePositions[i + 2] + Math.sin(state.clock.elapsedTime * 0.4 + basePositions[i] * 0.4) * 0.08
+      }
+      gridRef.current.geometry.attributes.position.needsUpdate = true
+    }
+  })
 
   return (
     <points ref={gridRef}>
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
-          count={600}
-          array={positions}
-          itemSize={3}
+          args={[positions, 3]}
         />
       </bufferGeometry>
       <pointsMaterial 
@@ -83,10 +82,19 @@ function HexGrid() {
   )
 }
 
-function DataStreams() {
+function DataStreams({ isDark }: SceneProps) {
   const streamRef = useRef<THREE.Points>(null)
-  const { theme } = useTheme()
-  const isDark = theme === "dark"
+  const positions = useMemo(() => {
+    const pos = new Float32Array(200 * 3)
+    for (let i = 0; i < 200; i++) {
+      const angle = Math.random() * Math.PI * 2
+      const radius = 3.5 + Math.random() * 2
+      pos[i * 3] = Math.cos(angle) * radius
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 10
+      pos[i * 3 + 2] = Math.sin(angle) * radius
+    }
+    return pos
+  }, [])
 
   useFrame((state) => {
     if (streamRef.current) {
@@ -102,26 +110,12 @@ function DataStreams() {
     }
   })
 
-  const positions = useMemo(() => {
-    const pos = new Float32Array(200 * 3)
-    for (let i = 0; i < 200; i++) {
-      const angle = Math.random() * Math.PI * 2
-      const radius = 3.5 + Math.random() * 2
-      pos[i * 3] = Math.cos(angle) * radius
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 10
-      pos[i * 3 + 2] = Math.sin(angle) * radius
-    }
-    return pos
-  }, [])
-
   return (
     <points ref={streamRef}>
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
-          count={200}
-          array={positions}
-          itemSize={3}
+          args={[positions, 3]}
         />
       </bufferGeometry>
       <pointsMaterial 
@@ -135,12 +129,10 @@ function DataStreams() {
   )
 }
 
-function OrbitalRings() {
+function OrbitalRings({ isDark }: SceneProps) {
   const ring1Ref = useRef<THREE.Mesh>(null)
   const ring2Ref = useRef<THREE.Mesh>(null)
   const ring3Ref = useRef<THREE.Mesh>(null)
-  const { theme } = useTheme()
-  const isDark = theme === "dark"
 
   useFrame((state) => {
     const t = state.clock.elapsedTime
@@ -168,19 +160,17 @@ function OrbitalRings() {
 }
 
 function SceneBackground() {
-  const { theme } = useTheme()
   const { scene } = useThree()
-  const isDark = theme === "dark"
   
   useEffect(() => {
     scene.background = null
-  }, [scene, isDark])
+  }, [scene])
   
   return null
 }
 
 export default function HeroScene() {
-  const { theme, resolvedTheme } = useTheme()
+  const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   
   useEffect(() => {
@@ -195,6 +185,7 @@ export default function HeroScene() {
         camera={{ position: [0, 0, 6.5], fov: 45 }}
         dpr={[1, 1.5]}
         performance={{ min: 0.5 }}
+        gl={{ antialias: true, powerPreference: "high-performance", alpha: true }}
         style={{ background: 'transparent' }}
       >
         <Suspense fallback={null}>
@@ -209,10 +200,10 @@ export default function HeroScene() {
             angle={0.5}
             penumbra={1}
           />
-          <CyberSphere />
-          <HexGrid />
-          <DataStreams />
-          <OrbitalRings />
+          <CyberSphere isDark={isDark} />
+          <HexGrid isDark={isDark} />
+          <DataStreams isDark={isDark} />
+          <OrbitalRings isDark={isDark} />
           <Stars 
             radius={60} 
             depth={40} 

@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef, useState } from "react"
-import { ExternalLink, Github, FolderOpen, ScanFace, Database, Activity, Shield, FileText } from "lucide-react"
+import { Github, FolderOpen, ScanFace, Database, Activity, Shield, FileText } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
@@ -119,14 +119,14 @@ export default function ProjectsSection() {
                 onMouseLeave={() => setHoveredProject(null)}
                 className="relative"
               >
-                <Card className="h-full glass border-border/50 hover:border-primary/50 transition-all duration-400 group card-hover overflow-hidden">
+                <Card className="h-full glass border-border/50 hover:border-primary/25 transition-all duration-300 group card-hover overflow-hidden">
                   {/* Hover tooltip */}
                   {hoveredProject === project.title && project.tooltip && (
                     <motion.div
                       initial={{ opacity: 0, y: 8, scale: 0.95 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 8, scale: 0.95 }}
-                      className="absolute -top-14 left-1/2 -translate-x-1/2 z-20 px-4 py-2 bg-foreground text-background text-xs rounded-lg whitespace-nowrap shadow-xl font-medium"
+                      className="absolute bottom-full left-1/2 z-20 mb-3 w-max max-w-[220px] -translate-x-1/2 px-4 py-2 bg-foreground text-background text-xs rounded-lg whitespace-normal text-center leading-snug shadow-lg font-medium pointer-events-none sm:max-w-[250px]"
                     >
                       {project.tooltip}
                       <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-foreground rotate-45" />
@@ -135,7 +135,7 @@ export default function ProjectsSection() {
                   
                   {/* Gradient overlay on hover */}
                   <motion.div 
-                    className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    className="absolute inset-0 bg-gradient-to-br from-primary/[0.025] to-accent/[0.015] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   />
                   
                   <CardHeader className="pb-3 relative">
@@ -149,18 +149,25 @@ export default function ProjectsSection() {
                       </motion.div>
                       <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <motion.div whileHover={{ scale: 1.15, y: -2 }} whileTap={{ scale: 0.95 }}>
-                          <Button variant="ghost" size="icon" className="w-8 h-8 hover:bg-primary/10">
-                            <Github className="w-4 h-4" />
-                          </Button>
-                        </motion.div>
-                        <motion.div whileHover={{ scale: 1.15, y: -2 }} whileTap={{ scale: 0.95 }}>
-                          <Button variant="ghost" size="icon" className="w-8 h-8 hover:bg-primary/10">
-                            <ExternalLink className="w-4 h-4" />
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            asChild
+                            className="w-8 h-8 text-foreground/70 hover:bg-primary/[0.08] hover:text-foreground dark:text-foreground dark:hover:text-foreground"
+                          >
+                            <a
+                              href="https://github.com/sudarshanudupa"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`Open ${project.title} on GitHub`}
+                            >
+                              <Github className="w-4 h-4" />
+                            </a>
                           </Button>
                         </motion.div>
                       </div>
                     </div>
-                    <CardTitle className="text-base sm:text-lg group-hover:text-primary transition-colors duration-300">
+                    <CardTitle className="text-base sm:text-lg group-hover:text-primary/90 transition-colors duration-300">
                       {project.title}
                     </CardTitle>
                     <CardDescription className="text-accent/80">
@@ -168,8 +175,8 @@ export default function ProjectsSection() {
                     </CardDescription>
                     {project.achievement && (
                       <motion.span 
-                        className="inline-block mt-2 px-2.5 py-1 text-xs rounded-lg bg-primary/15 text-primary font-semibold w-fit"
-                        whileHover={{ scale: 1.05, x: 3 }}
+                        className="inline-block mt-2 px-2.5 py-1 text-xs rounded-lg bg-primary/10 text-primary font-semibold w-fit"
+                        whileHover={{ scale: 1.03, x: 2 }}
                       >
                         {project.achievement}
                       </motion.span>
@@ -188,7 +195,7 @@ export default function ProjectsSection() {
                           animate={isInView ? { opacity: 1, scale: 1 } : {}}
                           transition={{ delay: 0.4 + i * 0.05 }}
                           whileHover={{ scale: 1.1, y: -3 }}
-                          className="px-2.5 py-1 text-xs rounded-lg glass border border-primary/20 hover:border-primary/50 text-foreground hover:text-primary font-mono transition-all duration-300 cursor-default"
+                          className="px-2.5 py-1 text-xs rounded-lg glass border border-primary/20 hover:border-primary/30 text-foreground hover:text-primary/90 font-mono transition-all duration-300 cursor-default"
                         >
                           {tech}
                         </motion.span>
@@ -211,7 +218,12 @@ export default function ProjectsSection() {
               whileHover={{ scale: 1.03 }} 
               whileTap={{ scale: 0.98 }}
             >
-              <Button variant="outline" size="lg" asChild className="group glass border-primary/30 hover:border-primary">
+              <Button
+                variant="outline"
+                size="lg"
+                asChild
+                className="group glass border-primary/25 bg-background/90 text-foreground hover:border-primary/35 hover:bg-background/95 hover:text-foreground dark:bg-background/10 dark:text-foreground dark:hover:bg-background/20 dark:hover:text-foreground"
+              >
                 <a
                   href="https://github.com/sudarshanudupa"
                   target="_blank"

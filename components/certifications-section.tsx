@@ -148,14 +148,14 @@ export default function CertificationsSection() {
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="absolute -top-10 left-1/2 -translate-x-1/2 z-10 px-3 py-1.5 bg-foreground text-background text-xs rounded-lg whitespace-nowrap shadow-lg"
+                      className="absolute bottom-full left-1/2 z-10 mb-3 w-max max-w-[220px] -translate-x-1/2 px-3 py-1.5 bg-foreground text-background text-xs rounded-lg whitespace-normal text-center leading-snug shadow-lg pointer-events-none sm:max-w-[240px]"
                     >
                       {cert.tooltip}
                       <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-foreground rotate-45" />
                     </motion.div>
                   )}
                   
-                  <Card className="h-full bg-card border-border hover:border-primary/50 transition-all duration-300 group card-hover">
+                  <Card className="h-full bg-card border-border hover:border-primary/25 transition-all duration-300 group card-hover">
                     <CardHeader className="pb-2 sm:pb-3">
                       <div className="flex items-start justify-between">
                         <motion.span 
@@ -203,8 +203,8 @@ export default function CertificationsSection() {
                   initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
-                  whileHover={{ scale: 1.01, x: 4 }}
-                  className="p-4 sm:p-5 rounded-xl bg-card border border-border hover:border-primary/50 transition-all duration-300 card-hover group"
+                  whileHover={{ scale: 1.005, x: 2 }}
+                  className="p-4 sm:p-5 rounded-xl bg-card border border-border hover:border-primary/25 transition-all duration-300 card-hover group"
                 >
                   <div className="flex items-start gap-3 sm:gap-4">
                     <motion.div

@@ -123,8 +123,8 @@ export default function ExperienceSection() {
                       transition={{ type: "spring", stiffness: 400 }}
                     />
                     <motion.div 
-                      className="p-5 sm:p-6 rounded-xl glass border border-border/50 hover:border-primary/50 transition-all duration-400 card-hover"
-                      whileHover={{ x: 6 }}
+                      className="p-5 sm:p-6 rounded-xl glass border border-border/50 hover:border-primary/25 transition-all duration-300 card-hover group"
+                      whileHover={{ x: 3 }}
                     >
                       <h4 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">{exp.title}</h4>
                       <p className="text-primary font-medium">{exp.company}</p>
@@ -201,16 +201,16 @@ export default function ExperienceSection() {
                     initial={{ opacity: 0, x: 30 }}
                     animate={isInView ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.5, delay: 0.3 + index * 0.12 }}
-                    whileHover={{ scale: 1.02 }}
-                    className="p-5 sm:p-6 rounded-xl glass border border-border/50 hover:border-primary/50 transition-all duration-400 card-hover group"
+                    whileHover={{ scale: 1.01 }}
+                    className="p-5 sm:p-6 rounded-xl glass border border-border/50 hover:border-primary/25 transition-all duration-300 card-hover group"
                   >
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2">
                       <h4 className="text-base sm:text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
                         {edu.degree}
                       </h4>
                       <motion.span 
-                        className="px-3 py-1 text-sm rounded-lg bg-primary/15 text-primary font-mono w-fit"
-                        whileHover={{ scale: 1.05 }}
+                        className="px-3 py-1 text-sm rounded-lg bg-primary/10 text-primary font-mono w-fit"
+                        whileHover={{ scale: 1.03 }}
                       >
                         {edu.score}
                       </motion.span>

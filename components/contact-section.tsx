@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent } from "@/components/ui/card"
+import { toast } from "@/hooks/use-toast"
 
 const contactInfo = [
   {
@@ -51,16 +52,119 @@ const socialLinks = [
 export default function ContactSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [status, setStatus] = useState<{ type: "success" | "error"; message: string } | null>(null)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const mailtoLink = `mailto:sudarshanudupa737@gmail.com?subject=Portfolio Contact from ${formData.name}&body=${encodeURIComponent(formData.message)}%0A%0AFrom: ${formData.name}%0AEmail: ${formData.email}`
-    window.location.href = mailtoLink
+    setIsSubmitting(true)
+    setStatus(null)
+
+    const trimmedData = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      message: formData.message.trim(),
+    }
+
+    if (!trimmedData.name || !trimmedData.email || !trimmedData.message) {
+      const message = "Please fill in your name, email, and message before sending."
+      setStatus({ type: "error", message })
+      toast({
+        title: "Missing details",
+        description: message,
+        variant: "destructive",
+      })
+      setIsSubmitting(false)
+      return
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+    if (!emailPattern.test(trimmedData.email)) {
+      const message = "Please enter a valid email address."
+      setStatus({ type: "error", message })
+      toast({
+        title: "Invalid email",
+        description: message,
+        variant: "destructive",
+      })
+      setIsSubmitting(false)
+      return
+    }
+
+    if (!accessKey) {
+      const message = "Missing NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY. Add it to .env and restart the dev server."
+      setStatus({ type: "error", message })
+      toast({
+        title: "Contact form unavailable",
+        description: message,
+        variant: "destructive",
+      })
+      setIsSubmitting(false)
+      return
+    }
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: trimmedData.name,
+          email: trimmedData.email,
+          replyto: trimmedData.email,
+          message: trimmedData.message,
+          subject: `Portfolio Contact from ${trimmedData.name}`,
+          from_name: "Sudarshan Portfolio",
+          botcheck: false,
+        }),
+      })
+
+      const result = await response.json()
+
+      if (!response.ok || !result.success) {
+        throw new Error(
+          result.message ||
+            result.body?.message ||
+            "Unable to send message right now."
+        )
+      }
+
+      const successMessage =
+        result.message || result.body?.message || "Message sent successfully."
+      setStatus({
+        type: "success",
+        message: successMessage,
+      })
+      toast({
+        title: "Message sent",
+        description: successMessage,
+      })
+      setFormData({ name: "", email: "", message: "" })
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Something went wrong while sending your message."
+      setStatus({
+        type: "error",
+        message,
+      })
+      toast({
+        title: "Message failed",
+        description: message,
+        variant: "destructive",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -104,9 +208,9 @@ export default function ContactSection() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={isInView ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
-                    whileHover={{ x: 4 }}
+                    whileHover={{ x: 2 }}
                   >
-                    <Card className="bg-card border-border hover:border-primary/50 transition-all duration-300 card-hover">
+                    <Card className="bg-card border-border hover:border-primary/25 transition-all duration-300 card-hover">
                       <CardContent className="p-3 sm:p-4">
                         {info.href ? (
                           <a
@@ -114,7 +218,7 @@ export default function ContactSection() {
                             className="flex items-center gap-3 sm:gap-4 group"
                           >
                             <motion.div 
-                              className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors"
+                              className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/15 transition-colors"
                               whileHover={{ rotate: 5, scale: 1.05 }}
                             >
                               <info.icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
@@ -160,9 +264,9 @@ export default function ContactSection() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={isInView ? { opacity: 1, y: 0 } : {}}
                       transition={{ duration: 0.3, delay: 0.7 + index * 0.1 }}
-                      whileHover={{ scale: 1.1, y: -4 }}
+                      whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
-                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-card border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-300"
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-card border border-border flex items-center justify-center hover:border-primary/30 hover:text-primary transition-all duration-300"
                       title={link.label}
                     >
                       <link.icon className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -178,7 +282,7 @@ export default function ContactSection() {
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <Card className="bg-card border-border card-hover">
+              <Card className="bg-card border-border hover:border-primary/20 transition-all duration-300 card-hover">
                 <CardContent className="p-4 sm:p-6">
                   <h3 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6">Send a Message</h3>
                   <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
@@ -192,6 +296,7 @@ export default function ContactSection() {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         required
+                        disabled={isSubmitting}
                         className="bg-background border-border focus:border-primary transition-colors"
                       />
                     </div>
@@ -206,6 +311,7 @@ export default function ContactSection() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         required
+                        disabled={isSubmitting}
                         className="bg-background border-border focus:border-primary transition-colors"
                       />
                     </div>
@@ -220,13 +326,25 @@ export default function ContactSection() {
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         required
+                        disabled={isSubmitting}
                         className="bg-background border-border focus:border-primary resize-none transition-colors"
                       />
                     </div>
-                    <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
-                      <Button type="submit" className="w-full gap-2 glow-border group">
+                    {status && (
+                      <p
+                        className={
+                          status.type === "success"
+                            ? "text-sm text-green-600 dark:text-green-400"
+                            : "text-sm text-red-600 dark:text-red-400"
+                        }
+                      >
+                        {status.message}
+                      </p>
+                    )}
+                    <motion.div whileHover={{ scale: 1.005 }} whileTap={{ scale: 0.99 }}>
+                      <Button type="submit" disabled={isSubmitting} className="w-full gap-2 group shadow-none">
                         <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        Send Message
+                        {isSubmitting ? "Sending..." : "Send Message"}
                       </Button>
                     </motion.div>
                   </form>

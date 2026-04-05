@@ -109,8 +109,8 @@ export default function SkillsSection() {
                 initial={{ opacity: 0, y: 40 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.1 + categoryIndex * 0.1 }}
-                whileHover={{ y: -4 }}
-                className="p-5 sm:p-6 rounded-xl glass border border-border/50 hover:border-primary/50 transition-all duration-400 card-hover"
+                whileHover={{ y: -2 }}
+                className="p-5 sm:p-6 rounded-xl glass border border-border/50 hover:border-primary/25 transition-all duration-300 card-hover"
               >
                 <div className="flex items-center gap-3 mb-6">
                   <motion.div
@@ -185,8 +185,8 @@ export default function SkillsSection() {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
-                  whileHover={{ scale: 1.08, y: -5 }}
-                  className="p-4 rounded-xl glass border border-border/50 text-center hover:border-primary/50 transition-all duration-400 group cursor-default card-hover"
+                  whileHover={{ scale: 1.03, y: -2 }}
+                  className="p-4 rounded-xl glass border border-border/50 text-center hover:border-primary/20 transition-all duration-300 group cursor-default card-hover"
                 >
                   <motion.div
                     whileHover={{ rotate: 15 }}

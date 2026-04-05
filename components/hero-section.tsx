@@ -90,8 +90,13 @@ export default function HeroSection() {
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-              <Button size="lg" variant="outline" className="gap-2 w-full sm:w-auto group" asChild>
-                <a href="/resume.pdf" download>
+              <Button
+                size="lg"
+                variant="outline"
+                className="gap-2 w-full sm:w-auto group border-primary/30 bg-background/85 text-foreground hover:bg-background/95 hover:text-foreground dark:border-primary/20 dark:bg-background/10 dark:text-foreground dark:hover:bg-background/20 dark:hover:text-foreground"
+                asChild
+              >
+                <a href="/resume.pdf" download="Sudarshan-Udupa-Resume.pdf">
                   <Download className="w-4 h-4 group-hover:animate-bounce" />
                   Download CV
                 </a>

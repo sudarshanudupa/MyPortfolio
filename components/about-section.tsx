@@ -104,7 +104,7 @@ export default function AboutSection() {
                 transition={{ delay: 0.3 }}
               >
                 Cybersecurity professional with{" "}
-                <span className="text-primary font-semibold">MTech in Cybersecurity (8.89 CGPA)</span> from 
+                <span className="text-primary font-semibold">MTech in Cybersecurity </span> from 
                 NMAM Institute of Technology, Nitte University. Currently an Engineer at{" "}
                 <span className="text-accent font-semibold">ANZ Support Services</span>, Bangalore.
               </motion.p>
