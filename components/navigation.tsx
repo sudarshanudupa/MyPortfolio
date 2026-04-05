@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, Shield, Github, Linkedin, Mail, Sun, Moon } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -21,9 +21,18 @@ export default function Navigation() {
   const [activeSection, setActiveSection] = useState("")
   const { theme, setTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current)
+      }
+    }
   }, [])
 
   useEffect(() => {
@@ -42,11 +51,47 @@ export default function Navigation() {
         }
       }
     }
+    handleScroll()
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   const currentTheme = mounted ? resolvedTheme : "dark"
+
+  const scrollToSection = (href: string) => {
+    const sectionId = href.replace("#", "")
+    const target = document.getElementById(sectionId)
+
+    if (!target) {
+      return
+    }
+
+    const headerOffset = window.innerWidth < 1024 ? 88 : 96
+    const top = target.getBoundingClientRect().top + window.scrollY - headerOffset
+
+    window.scrollTo({
+      top: Math.max(top, 0),
+      behavior: "smooth",
+    })
+    window.history.replaceState(null, "", href)
+    setActiveSection(sectionId)
+  }
+
+  const handleNavClick = (href: string) => {
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current)
+    }
+
+    if (isOpen) {
+      setIsOpen(false)
+      scrollTimeoutRef.current = setTimeout(() => {
+        scrollToSection(href)
+      }, 320)
+      return
+    }
+
+    scrollToSection(href)
+  }
 
   return (
     <motion.header
@@ -86,6 +131,10 @@ export default function Navigation() {
               <motion.a
                 key={link.name}
                 href={link.href}
+                onClick={(event) => {
+                  event.preventDefault()
+                  handleNavClick(link.href)
+                }}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.08, duration: 0.4 }}
@@ -209,7 +258,10 @@ export default function Navigation() {
                   <motion.a
                     key={link.name}
                     href={link.href}
-                    onClick={() => setIsOpen(false)}
+                    onClick={(event) => {
+                      event.preventDefault()
+                      handleNavClick(link.href)
+                    }}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
