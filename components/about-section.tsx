@@ -162,23 +162,31 @@ export default function AboutSection() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={isInView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 0.4, delay: 0.8 + index * 0.1 }}
-                whileHover={{ scale: 1.05, y: -6 }}
-                className="relative p-5 sm:p-6 rounded-xl glass border border-border/50 hover:border-primary/50 transition-all duration-400 group card-hover cursor-default"
+                whileHover={{ scale: 1.05, y: -8 }}
+                className="relative p-5 sm:p-6 rounded-xl bg-card/90 dark:bg-card/70 border border-border/60 hover:border-primary/40 transition-all duration-400 group card-hover cursor-default overflow-hidden"
                 title={stat.tooltip}
               >
+                {/* Top accent line */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-accent opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+                
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                 />
-                <stat.icon className="w-7 h-7 sm:w-8 sm:h-8 text-primary mb-4 group-hover:scale-110 transition-transform duration-300" />
+                <motion.div
+                  whileHover={{ rotate: 10, scale: 1.15 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                >
+                  <stat.icon className="w-7 h-7 sm:w-8 sm:h-8 text-primary mb-4" />
+                </motion.div>
                 <p className="text-3xl sm:text-4xl font-bold text-foreground mb-1">{stat.value}</p>
-                <p className="text-xs sm:text-sm text-muted-foreground">{stat.label}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground font-medium">{stat.label}</p>
                 {/* Hover tooltip */}
                 <motion.div 
-                  className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-lg bg-foreground text-background text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  className="absolute -top-12 left-1/2 -translate-x-1/2 px-4 py-2 rounded-xl tooltip-enhanced text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none border border-primary/20"
                   initial={{ y: 5 }}
-                  whileHover={{ y: 0 }}
                 >
                   {stat.tooltip}
+                  <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-[oklch(0.20_0.02_260)] dark:bg-[oklch(0.95_0.01_260)] rotate-45" />
                 </motion.div>
               </motion.div>
             ))}

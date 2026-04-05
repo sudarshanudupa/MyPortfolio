@@ -109,10 +109,13 @@ export default function SkillsSection() {
                 initial={{ opacity: 0, y: 40 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.1 + categoryIndex * 0.1 }}
-                whileHover={{ y: -4 }}
-                className="p-5 sm:p-6 rounded-xl glass border border-border/50 hover:border-primary/50 transition-all duration-400 card-hover"
+                whileHover={{ y: -6 }}
+                className="p-5 sm:p-6 rounded-xl bg-card/90 dark:bg-card/70 border border-border/60 hover:border-primary/40 transition-all duration-400 card-hover relative overflow-hidden group"
               >
-                <div className="flex items-center gap-3 mb-6">
+                {/* Top accent bar */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-primary opacity-40 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                <div className="flex items-center gap-3 mb-6 pt-1">
                   <motion.div
                     whileHover={{ rotate: 15, scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 400 }}
@@ -185,8 +188,8 @@ export default function SkillsSection() {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
-                  whileHover={{ scale: 1.08, y: -5 }}
-                  className="p-4 rounded-xl glass border border-border/50 text-center hover:border-primary/50 transition-all duration-400 group cursor-default card-hover"
+                  whileHover={{ scale: 1.08, y: -6 }}
+                  className="p-4 sm:p-5 rounded-xl bg-card/90 dark:bg-card/70 border border-border/60 text-center hover:border-primary/40 transition-all duration-400 group cursor-default card-hover"
                 >
                   <motion.div
                     whileHover={{ rotate: 15 }}

@@ -123,8 +123,8 @@ export default function ExperienceSection() {
                       transition={{ type: "spring", stiffness: 400 }}
                     />
                     <motion.div 
-                      className="p-5 sm:p-6 rounded-xl glass border border-border/50 hover:border-primary/50 transition-all duration-400 card-hover"
-                      whileHover={{ x: 6 }}
+                      className="p-5 sm:p-6 rounded-xl bg-card/90 dark:bg-card/70 border border-border/60 hover:border-primary/40 transition-all duration-400 card-hover"
+                      whileHover={{ x: 8 }}
                     >
                       <h4 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">{exp.title}</h4>
                       <p className="text-primary font-medium">{exp.company}</p>
@@ -201,10 +201,13 @@ export default function ExperienceSection() {
                     initial={{ opacity: 0, x: 30 }}
                     animate={isInView ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.5, delay: 0.3 + index * 0.12 }}
-                    whileHover={{ scale: 1.02 }}
-                    className="p-5 sm:p-6 rounded-xl glass border border-border/50 hover:border-primary/50 transition-all duration-400 card-hover group"
+                    whileHover={{ scale: 1.02, x: 4 }}
+                    className="p-5 sm:p-6 rounded-xl bg-card/90 dark:bg-card/70 border border-border/60 hover:border-primary/40 transition-all duration-400 card-hover group relative overflow-hidden"
                   >
-                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2">
+                    {/* Left accent bar */}
+                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-primary to-accent opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
+                    
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2 pl-2">
                       <h4 className="text-base sm:text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
                         {edu.degree}
                       </h4>
@@ -217,7 +220,7 @@ export default function ExperienceSection() {
                     </div>
                     {edu.highlight && (
                       <motion.div 
-                        className="flex items-center gap-1.5 mb-2"
+                        className="flex items-center gap-1.5 mb-2 pl-2"
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={isInView ? { opacity: 1, scale: 1 } : {}}
                         transition={{ delay: 0.5 }}
@@ -226,9 +229,9 @@ export default function ExperienceSection() {
                         <span className="text-xs text-accent font-semibold">{edu.highlight}</span>
                       </motion.div>
                     )}
-                    <p className="text-primary/80 text-sm font-medium">{edu.institution}</p>
-                    <p className="text-xs text-muted-foreground mt-1 font-mono">{edu.period}</p>
-                    <p className="text-muted-foreground text-sm mt-3">{edu.description}</p>
+                    <p className="text-primary/80 text-sm font-medium pl-2">{edu.institution}</p>
+                    <p className="text-xs text-muted-foreground mt-1 font-mono pl-2">{edu.period}</p>
+                    <p className="text-muted-foreground text-sm mt-3 pl-2">{edu.description}</p>
                   </motion.div>
                 ))}
               </div>

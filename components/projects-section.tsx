@@ -119,17 +119,17 @@ export default function ProjectsSection() {
                 onMouseLeave={() => setHoveredProject(null)}
                 className="relative"
               >
-                <Card className="h-full glass border-border/50 hover:border-primary/50 transition-all duration-400 group card-hover overflow-hidden">
+                <Card className="h-full glass border-border/50 hover:border-primary/40 transition-all duration-400 group card-hover overflow-hidden bg-card/80 dark:bg-card/60">
                   {/* Hover tooltip */}
                   {hoveredProject === project.title && project.tooltip && (
                     <motion.div
                       initial={{ opacity: 0, y: 8, scale: 0.95 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 8, scale: 0.95 }}
-                      className="absolute -top-14 left-1/2 -translate-x-1/2 z-20 px-4 py-2 bg-foreground text-background text-xs rounded-lg whitespace-nowrap shadow-xl font-medium"
+                      className="absolute -top-14 left-1/2 -translate-x-1/2 z-20 px-4 py-2.5 tooltip-enhanced text-xs rounded-xl whitespace-nowrap font-medium border border-primary/20"
                     >
                       {project.tooltip}
-                      <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-foreground rotate-45" />
+                      <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-[oklch(0.20_0.02_260)] dark:bg-[oklch(0.95_0.01_260)] rotate-45" />
                     </motion.div>
                   )}
                   
@@ -147,14 +147,14 @@ export default function ProjectsSection() {
                       >
                         <project.icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                       </motion.div>
-                      <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <motion.div whileHover={{ scale: 1.15, y: -2 }} whileTap={{ scale: 0.95 }}>
-                          <Button variant="ghost" size="icon" className="w-8 h-8 hover:bg-primary/10">
+                      <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                        <motion.div whileHover={{ scale: 1.2, y: -3 }} whileTap={{ scale: 0.95 }}>
+                          <Button variant="ghost" size="icon" className="w-8 h-8 hover:bg-primary/15 text-muted-foreground hover:text-primary border border-transparent hover:border-primary/30 transition-all duration-300">
                             <Github className="w-4 h-4" />
                           </Button>
                         </motion.div>
-                        <motion.div whileHover={{ scale: 1.15, y: -2 }} whileTap={{ scale: 0.95 }}>
-                          <Button variant="ghost" size="icon" className="w-8 h-8 hover:bg-primary/10">
+                        <motion.div whileHover={{ scale: 1.2, y: -3 }} whileTap={{ scale: 0.95 }}>
+                          <Button variant="ghost" size="icon" className="w-8 h-8 hover:bg-primary/15 text-muted-foreground hover:text-primary border border-transparent hover:border-primary/30 transition-all duration-300">
                             <ExternalLink className="w-4 h-4" />
                           </Button>
                         </motion.div>
@@ -168,9 +168,11 @@ export default function ProjectsSection() {
                     </CardDescription>
                     {project.achievement && (
                       <motion.span 
-                        className="inline-block mt-2 px-2.5 py-1 text-xs rounded-lg bg-primary/15 text-primary font-semibold w-fit"
-                        whileHover={{ scale: 1.05, x: 3 }}
+                        className="inline-flex items-center gap-1.5 mt-3 px-3 py-1.5 text-xs rounded-lg bg-gradient-to-r from-primary/15 to-accent/10 text-primary font-bold w-fit border border-primary/20"
+                        whileHover={{ scale: 1.05, x: 4 }}
+                        transition={{ type: "spring", stiffness: 400 }}
                       >
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                         {project.achievement}
                       </motion.span>
                     )}
@@ -211,7 +213,7 @@ export default function ProjectsSection() {
               whileHover={{ scale: 1.03 }} 
               whileTap={{ scale: 0.98 }}
             >
-              <Button variant="outline" size="lg" asChild className="group glass border-primary/30 hover:border-primary">
+              <Button size="lg" asChild className="group bg-primary text-primary-foreground hover:bg-primary/90 border-0 shadow-lg shadow-primary/20 hover:shadow-primary/30">
                 <a
                   href="https://github.com/sudarshanudupa"
                   target="_blank"

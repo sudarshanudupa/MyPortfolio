@@ -81,16 +81,16 @@ export default function HeroSection() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8 px-4 sm:px-0"
           >
-            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-              <Button size="lg" className="gap-2 glow-border w-full sm:w-auto" asChild>
+            <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.98 }}>
+              <Button size="lg" className="gap-2 w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all duration-300" asChild>
                 <a href="#contact">
                   <FileText className="w-4 h-4" />
                   Get in Touch
                 </a>
               </Button>
             </motion.div>
-            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-              <Button size="lg" variant="outline" className="gap-2 w-full sm:w-auto group" asChild>
+            <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.98 }}>
+              <Button size="lg" variant="outline" className="gap-2 w-full sm:w-auto group bg-background/80 dark:bg-background/50 border-primary/30 hover:border-primary hover:bg-primary/10 transition-all duration-300" asChild>
                 <a href="/resume.pdf" download>
                   <Download className="w-4 h-4 group-hover:animate-bounce" />
                   Download CV

@@ -75,11 +75,25 @@ export default function ContactSection() {
           className="max-w-6xl mx-auto"
         >
           {/* Section Header */}
-          <div className="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-12">
-            <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">Get In Touch</h2>
-            <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
-          </div>
+          <motion.div 
+            className="flex items-center gap-4 mb-12"
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ delay: 0.1 }}
+          >
+            <motion.div 
+              className="p-3 rounded-xl bg-primary/10 border border-primary/20"
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              transition={{ type: "spring", stiffness: 400 }}
+            >
+              <MessageSquare className="w-6 h-6 text-primary" />
+            </motion.div>
+            <div>
+              <h2 className="text-3xl sm:text-4xl font-bold gradient-text">Get In Touch</h2>
+              <p className="text-sm text-muted-foreground mt-1">Let&apos;s start a conversation</p>
+            </div>
+            <div className="flex-1 h-px bg-gradient-to-r from-primary/50 to-transparent" />
+          </motion.div>
 
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
             {/* Contact Info */}
@@ -106,7 +120,7 @@ export default function ContactSection() {
                     transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
                     whileHover={{ x: 4 }}
                   >
-                    <Card className="bg-card border-border hover:border-primary/50 transition-all duration-300 card-hover">
+                    <Card className="bg-card/90 dark:bg-card/70 border-border/60 hover:border-primary/40 transition-all duration-300 card-hover">
                       <CardContent className="p-3 sm:p-4">
                         {info.href ? (
                           <a
@@ -162,7 +176,7 @@ export default function ContactSection() {
                       transition={{ duration: 0.3, delay: 0.7 + index * 0.1 }}
                       whileHover={{ scale: 1.1, y: -4 }}
                       whileTap={{ scale: 0.95 }}
-                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-card border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-300"
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-card/90 dark:bg-card/70 border border-border/60 flex items-center justify-center hover:border-primary hover:text-primary hover:bg-primary/10 transition-all duration-300"
                       title={link.label}
                     >
                       <link.icon className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -178,7 +192,7 @@ export default function ContactSection() {
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <Card className="bg-card border-border card-hover">
+              <Card className="bg-card/90 dark:bg-card/70 border-border/60 hover:border-primary/40 card-hover transition-all duration-400">
                 <CardContent className="p-4 sm:p-6">
                   <h3 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6">Send a Message</h3>
                   <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
