@@ -123,8 +123,8 @@ export default function ExperienceSection() {
                       transition={{ type: "spring", stiffness: 400 }}
                     />
                     <motion.div 
-                      className="p-5 sm:p-6 rounded-xl bg-card/90 dark:bg-card/70 border border-border/60 hover:border-primary/40 transition-all duration-400 card-hover"
-                      whileHover={{ x: 8 }}
+                      className="p-5 sm:p-6 rounded-xl bg-card/95 dark:bg-card/80 border border-border/40 hover:border-primary/30 transition-all duration-350 card-hover"
+                      whileHover={{ x: 4 }}
                     >
                       <h4 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">{exp.title}</h4>
                       <p className="text-primary font-medium">{exp.company}</p>
@@ -201,18 +201,18 @@ export default function ExperienceSection() {
                     initial={{ opacity: 0, x: 30 }}
                     animate={isInView ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.5, delay: 0.3 + index * 0.12 }}
-                    whileHover={{ scale: 1.02, x: 4 }}
-                    className="p-5 sm:p-6 rounded-xl bg-card/90 dark:bg-card/70 border border-border/60 hover:border-primary/40 transition-all duration-400 card-hover group relative overflow-hidden"
+                    whileHover={{ scale: 1.01 }}
+                    className="p-5 sm:p-6 rounded-xl bg-card/95 dark:bg-card/80 border border-border/40 hover:border-primary/30 transition-all duration-350 card-hover group relative overflow-hidden"
                   >
                     {/* Left accent bar */}
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-primary to-accent opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/60 to-primary/30 opacity-40 group-hover:opacity-80 transition-opacity duration-300" />
                     
-                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2 pl-2">
-                      <h4 className="text-base sm:text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2 pl-3">
+                      <h4 className="text-base sm:text-lg font-semibold text-foreground group-hover:text-primary transition-colors duration-300 flex-1 pr-2">
                         {edu.degree}
                       </h4>
                       <motion.span 
-                        className="px-3 py-1 text-sm rounded-lg bg-primary/15 text-primary font-mono w-fit"
+                        className="px-3 py-1 text-sm rounded-lg bg-primary/10 text-primary font-mono whitespace-nowrap flex-shrink-0"
                         whileHover={{ scale: 1.05 }}
                       >
                         {edu.score}
@@ -220,18 +220,18 @@ export default function ExperienceSection() {
                     </div>
                     {edu.highlight && (
                       <motion.div 
-                        className="flex items-center gap-1.5 mb-2 pl-2"
+                        className="flex items-center gap-1.5 mb-2 pl-3"
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={isInView ? { opacity: 1, scale: 1 } : {}}
                         transition={{ delay: 0.5 }}
                       >
-                        <Award className="w-3.5 h-3.5 text-accent" />
-                        <span className="text-xs text-accent font-semibold">{edu.highlight}</span>
+                        <Award className="w-3.5 h-3.5 text-primary/70" />
+                        <span className="text-xs text-primary/80 font-medium">{edu.highlight}</span>
                       </motion.div>
                     )}
-                    <p className="text-primary/80 text-sm font-medium pl-2">{edu.institution}</p>
-                    <p className="text-xs text-muted-foreground mt-1 font-mono pl-2">{edu.period}</p>
-                    <p className="text-muted-foreground text-sm mt-3 pl-2">{edu.description}</p>
+                    <p className="text-muted-foreground text-sm font-medium pl-3">{edu.institution}</p>
+                    <p className="text-xs text-muted-foreground/70 mt-1 font-mono pl-3">{edu.period}</p>
+                    <p className="text-muted-foreground text-sm mt-3 pl-3 leading-relaxed">{edu.description}</p>
                   </motion.div>
                 ))}
               </div>

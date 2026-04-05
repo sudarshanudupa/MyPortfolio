@@ -109,11 +109,11 @@ export default function SkillsSection() {
                 initial={{ opacity: 0, y: 40 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.1 + categoryIndex * 0.1 }}
-                whileHover={{ y: -6 }}
-                className="p-5 sm:p-6 rounded-xl bg-card/90 dark:bg-card/70 border border-border/60 hover:border-primary/40 transition-all duration-400 card-hover relative overflow-hidden group"
+                whileHover={{ y: -3 }}
+                className="p-5 sm:p-6 rounded-xl bg-card/95 dark:bg-card/80 border border-border/40 hover:border-primary/30 transition-all duration-350 card-hover relative overflow-hidden group"
               >
                 {/* Top accent bar */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-primary opacity-40 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/50 via-primary/70 to-primary/50 opacity-30 group-hover:opacity-70 transition-opacity duration-300" />
                 
                 <div className="flex items-center gap-3 mb-6 pt-1">
                   <motion.div
@@ -145,21 +145,21 @@ export default function SkillsSection() {
                           {skill.level}%
                         </motion.span>
                       </div>
-                      <div className="h-2 bg-secondary/50 rounded-full overflow-hidden">
+                      <div className="h-1.5 bg-secondary/40 rounded-full overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={isInView ? { width: `${skill.level}%` } : {}}
                           transition={{
-                            duration: 1.2,
-                            delay: 0.3 + categoryIndex * 0.1 + skillIndex * 0.1,
+                            duration: 1,
+                            delay: 0.3 + categoryIndex * 0.1 + skillIndex * 0.08,
                             ease: [0.25, 0.46, 0.45, 0.94],
                           }}
-                          className="h-full bg-gradient-to-r from-primary to-accent rounded-full relative overflow-hidden"
+                          className="h-full bg-gradient-to-r from-primary/80 to-primary rounded-full relative overflow-hidden"
                         >
                           <motion.div
-                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent"
                             animate={{ x: ["-100%", "200%"] }}
-                            transition={{ duration: 2.5, repeat: Infinity, delay: skillIndex * 0.3 }}
+                            transition={{ duration: 3, repeat: Infinity, delay: skillIndex * 0.4 }}
                           />
                         </motion.div>
                       </div>
@@ -188,8 +188,8 @@ export default function SkillsSection() {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
-                  whileHover={{ scale: 1.08, y: -6 }}
-                  className="p-4 sm:p-5 rounded-xl bg-card/90 dark:bg-card/70 border border-border/60 text-center hover:border-primary/40 transition-all duration-400 group cursor-default card-hover"
+                  whileHover={{ scale: 1.04, y: -3 }}
+                  className="p-4 sm:p-5 rounded-xl bg-card/95 dark:bg-card/80 border border-border/40 text-center hover:border-primary/30 transition-all duration-350 group cursor-default card-hover"
                 >
                   <motion.div
                     whileHover={{ rotate: 15 }}

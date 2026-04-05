@@ -188,7 +188,7 @@ export default function CertificationsSection() {
                     </motion.div>
                   )}
                   
-                  <Card className="h-full bg-card/90 dark:bg-card/70 border-border/60 hover:border-primary/40 transition-all duration-300 group card-hover cert-card">
+                  <Card className="h-full bg-card/95 dark:bg-card/85 border-border/40 hover:border-primary/30 transition-all duration-350 group card-hover cert-card">
                     <CardHeader className="pb-2 sm:pb-3">
                       <div className="flex items-start justify-between">
                         <motion.span 
@@ -248,19 +248,19 @@ export default function CertificationsSection() {
                   initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
-                  whileHover={{ scale: 1.02, x: 6 }}
-                  className="p-5 sm:p-6 rounded-xl bg-card/90 dark:bg-card/70 border border-border/60 hover:border-primary/40 transition-all duration-300 card-hover achievement-card group relative overflow-hidden"
+                  whileHover={{ scale: 1.01 }}
+                  className="p-5 sm:p-6 rounded-xl bg-card/95 dark:bg-card/85 border border-border/40 hover:border-primary/30 transition-all duration-350 card-hover achievement-card group relative overflow-hidden"
                 >
-                  {/* Subtle gradient accent */}
-                  <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary to-accent opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+                  {/* Subtle accent bar */}
+                  <div className="absolute top-0 left-0 w-0.5 h-full bg-gradient-to-b from-primary/60 to-primary/30 opacity-40 group-hover:opacity-70 transition-opacity duration-300" />
                   
                   <div className="flex items-start gap-4">
                     <motion.div
-                      whileHover={{ rotate: 15, scale: 1.15 }}
+                      whileHover={{ rotate: 10, scale: 1.1 }}
                       transition={{ type: "spring", stiffness: 400 }}
-                      className="p-2.5 rounded-xl bg-gradient-to-br from-primary/15 to-accent/10 border border-primary/20 flex-shrink-0"
+                      className="p-2 rounded-lg bg-primary/8 border border-primary/15 flex-shrink-0"
                     >
-                      <achievement.icon className="w-5 h-5 text-primary" />
+                      <achievement.icon className="w-4 h-4 text-primary/80" />
                     </motion.div>
                     <div className="flex-1 min-w-0">
                       <h4 className="text-sm sm:text-base font-bold text-foreground group-hover:text-primary transition-colors duration-300">

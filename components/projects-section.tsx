@@ -119,7 +119,7 @@ export default function ProjectsSection() {
                 onMouseLeave={() => setHoveredProject(null)}
                 className="relative"
               >
-                <Card className="h-full glass border-border/50 hover:border-primary/40 transition-all duration-400 group card-hover overflow-hidden bg-card/80 dark:bg-card/60">
+                <Card className="h-full bg-card/95 dark:bg-card/85 border border-border/40 hover:border-primary/30 transition-all duration-350 group card-hover overflow-hidden">
                   {/* Hover tooltip */}
                   {hoveredProject === project.title && project.tooltip && (
                     <motion.div
@@ -133,9 +133,9 @@ export default function ProjectsSection() {
                     </motion.div>
                   )}
                   
-                  {/* Gradient overlay on hover */}
+                  {/* Subtle gradient overlay on hover */}
                   <motion.div 
-                    className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    className="absolute inset-0 bg-gradient-to-br from-primary/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400"
                   />
                   
                   <CardHeader className="pb-3 relative">
@@ -168,11 +168,11 @@ export default function ProjectsSection() {
                     </CardDescription>
                     {project.achievement && (
                       <motion.span 
-                        className="inline-flex items-center gap-1.5 mt-3 px-3 py-1.5 text-xs rounded-lg bg-gradient-to-r from-primary/15 to-accent/10 text-primary font-bold w-fit border border-primary/20"
-                        whileHover={{ scale: 1.05, x: 4 }}
+                        className="inline-flex items-center gap-1.5 mt-3 px-2.5 py-1 text-xs rounded-lg bg-primary/10 text-primary font-semibold w-fit border border-primary/15"
+                        whileHover={{ scale: 1.03 }}
                         transition={{ type: "spring", stiffness: 400 }}
                       >
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary/70" />
                         {project.achievement}
                       </motion.span>
                     )}
