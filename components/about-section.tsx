@@ -73,7 +73,7 @@ export default function AboutSection() {
                   transition={{ duration: 0.3 }}
                 >
                   <Image
-                    src="/images/profile.jpg"
+                    src="/images/profile.jpeg"
                     alt="Sudarshan Udupa"
                     fill
                     className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
